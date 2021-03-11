@@ -1,0 +1,247 @@
+
+
+Pular para o conteúdo
+Como usar o Gmail com leitores de tela
+in:sent 
+Ativar as notificações na área de trabalho para o Gmail.
+   OK  Não, obrigado(a)
+Meet
+Nova reunião
+Participar de reunião
+Hangouts
+
+Conversas
+Para: 
+magnamaciel.
+Declaração de conclusão do ensino médio
+ 
+Anexo:
+digitalizar0002.jpg
+14:57
+8,38 GB de 15 GB usado(s)
+Termos · Privacidade · Regulamentos do programa
+Última atividade da conta: há 11 dias
+Detalhes
+ /*
+ Bibliotecas
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <windows.h>
+
+/*declarações de variaveis*/
+
+    int senha,opcao,idade,ano,cep,usuario;
+    char comorb[20];
+
+/*inicio do sistema */
+
+int main(){
+
+
+    setlocale(LC_ALL,"portuguese");
+
+
+    printf("\n\n\n             ..:: Sejam bem-vindos ao Hospital Vidas Importam! ::.. ");
+
+
+
+    printf ("\n\n\t\tIniciando o Sistema de Controle de Covid19...");
+    sleep(2);
+    system("cls");
+    return login();
+};
+
+
+/* Tela de Login */
+
+
+ int login(){
+
+
+     printf("----- INSIRA SEU LOGIN PARA ACESSAR O SISTEMA-----\n");
+     printf("USUÁRIO CPF:");
+     scanf("%d", &usuario);
+     printf("SENHA:");
+     scanf("%d",&senha);
+  if(usuario==202020&& senha==123){
+    printf ("Login Bem Sucedido\n");
+    sleep(2);
+    system("cls");
+    return menu();
+
+}else{
+  printf("Senha ou login incorreto tente novamente!\n");
+  sleep(2);
+  system("cls");
+  return login();
+  };
+
+
+  return 0;
+ };
+ 
+ /* tela de menu */
+ 
+ int menu(){
+  printf ("----ESCOLHA UMA OPÇÃO-----\n");
+  printf("CADASTRAR= 1\n");
+  printf("PACIENTES= 2\n");
+  printf("PACIENTES COM RISCO= 3\n");
+  printf("SAIR= 3\n");
+  printf("DIGITE O NÚMERO DA OPÇÃO:");
+  scanf("%d", &opcao);
+  system("cls");
+  if(opcao==1){
+        return cadastrar();
+
+  }else if(opcao==2){
+    return paciente();
+  }else if(opcao==3){
+     return isc();
+  }
+  else if(opcao==4){
+    printf("OBRIGADO POR USAR NOSSO SISTEMA:)\n");
+    system("pause");
+  }
+  }
+  
+ /* função cadastrar e as varaveis */ 
+  
+  int cadastrar(){
+  FILE *pont_cads;
+  char nome[20],email[20],endereco[100],rua[20],bairro[20],cidade[20],estado[20],dataN[10],dataD[10],cpf[15],sobrenome[20];;
+  int tel,numero,dia,mes;
+
+
+  pont_cads= fopen("cadastro4.txt", "w");
+
+
+  if(pont_cads == NULL)
+  {
+  printf("Erro na abertura do arquivo!");
+  return 1;
+  }
+ printf(" ATENÇÃO CASO NECESSITE USAR ESPAÇO ENTRE AS PALAVRAS OPTE POR HÍFEN(-)!!!!!\n");
+  printf("--- Nome do paciente-----\n");
+  printf("-Primeiro nome:");
+   scanf("%s", &nome);
+  printf("-Sobrenome:");
+  scanf("%s", &sobrenome);
+   printf("--- CPF do paciente: ");
+  scanf("%s", &cpf);
+   printf("--- Telefone do paciente: ");
+  scanf("%d", &tel);
+   printf("--- Endereço----\n ");
+   printf("--- Rua: ");
+   scanf("%s", &rua);
+   printf("--- Numero: ");
+   scanf("%d", &numero);
+   printf("--- Bairrro:");
+   scanf("%s", &bairro);
+   printf("--- Cidade: ");
+   scanf("%s", &cidade);
+   printf("--- Estado:");
+   scanf("%s", &estado);
+   printf("--- CEP:");
+   scanf("%d", &cep);
+   printf("--- Data de nacimento----\n");
+  printf("--- Dia: ");
+  scanf("%d", &dia);
+   printf("--- MÊS: ");
+   scanf("%d", &mes);
+    printf("--- Ano: ");
+    scanf("%d", &ano);
+     printf("--- Email do paciente: ");
+  scanf("%s", &email );
+     printf("--- Data de diagnóstico (dia/mes/ano): ");
+  scanf("%s", &dataD);
+     printf("--- Comorbidade (diabetes,obesidade,hipertensão,tuberculose,outros): ");
+  scanf("%s", &comorb);
+
+
+
+  fprintf(pont_cads, "nome=%s %s\t", nome,sobrenome);
+  fprintf(pont_cads, "cpf=%s\t ", cpf);
+  fprintf(pont_cads, "telefone=%d\t  ", tel );
+  fprintf(pont_cads, "Endereço=%s,%d,%s,%s,%s,%d\t",rua,numero,bairro,cidade,estado,cep );
+  fprintf(pont_cads, "Data Nacimento=%d/%d/%d\t", dia,mes,ano);
+  fprintf(pont_cads, "Email=%s\t\n", email);
+  fprintf(pont_cads, "Data Diagnóstico=%s\t", dataD);
+  fprintf(pont_cads, "Comorbidade=%s\n", comorb);
+  fprintf(pont_cads,"----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+
+
+
+  fclose(pont_cads);
+
+  printf("Dados gravados com sucesso!\n");
+  idad();
+  getch();
+  system("cls");
+  return menu();}
+  int paciente()
+{
+  FILE *pont_arq;
+  char texto_str[20];
+
+
+  pont_arq = fopen("cadastro4.txt", "r");
+
+
+  while(fgets(texto_str, 20, pont_arq) != NULL)
+  printf("%s", texto_str);
+
+
+  fclose(pont_arq);
+
+  getch();
+   system("cls");
+  return menu();}
+  int idad(){
+      idade = 2020-ano;
+      if (idade>=65){
+            printf("PACIENTE NA AREA DE RISCO!");
+        return risco();
+
+      }else{
+      printf("IDADE FORA DA AREA DE RISCO!");}
+  }
+int risco(){
+     FILE *pont_risc;
+
+
+  pont_risc= fopen("risc.txt", "w");
+
+
+  if(pont_risc == NULL)
+  {
+  printf("Erro na abertura do arquivo!");
+  return 1;}
+   fprintf(pont_risc,"-----CEP--------------IDADE---------\n");
+   fprintf(pont_risc, "%d\t\t\t", cep);
+   fprintf(pont_risc, "%d\n", idade);
+
+fclose(pont_risc);
+
+
+} int isc(){
+  FILE *pont_arq;
+  char texto_str[20];
+
+
+  pont_arq = fopen("risc.txt", "r");
+
+  while(fgets(texto_str, 20, pont_arq) != NULL)
+  printf("%s\n", texto_str);
+
+
+  fclose(pont_arq);
+
+  getch();
+   system("cls");
+  return menu();}
+
+hospital.c
+Exibindo hospital.c.
